@@ -1,4 +1,4 @@
-const text = "Will you be my Valentine, Shiana? 💖";
+const text = "Will you stay with me forever, Selfieee?";
 let index = 0;
 const typingEl = document.getElementById("typingText");
 
@@ -6,23 +6,28 @@ function typeText() {
   if (index < text.length) {
     typingEl.textContent += text.charAt(index);
     index++;
-    setTimeout(typeText, 60);
+    setTimeout(typeText, 70);
   }
 }
 typeText();
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const bgMusic = document.getElementById("bgMusic");
 
-yesBtn.addEventListener("click", showIntroQuotes);
+noBtn.addEventListener("mouseenter", moveNoBtn);
+noBtn.addEventListener("click", moveNoBtn);
 
-function showIntroQuotes() {
+function moveNoBtn() {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+yesBtn.addEventListener("click", showQuotes);
+
+function showQuotes() {
   const container = document.querySelector(".container");
-
-  container.innerHTML = `
-    <div class="intro-quotes" id="introQuotes"></div>
-  `;
+  container.innerHTML = `<div class="intro-quotes" id="quotes"></div>`;
 
   const quotes = [
     "You are my calm in every storm.",
@@ -30,126 +35,80 @@ function showIntroQuotes() {
     "Loving you feels like home."
   ];
 
-  const intro = document.getElementById("introQuotes");
+  const quotesDiv = document.getElementById("quotes");
   let i = 0;
 
-  function showQuote() {
+  function showNext() {
     if (i < quotes.length) {
       const p = document.createElement("p");
-      p.classList.add("quote-line");
       p.textContent = quotes[i];
-      intro.appendChild(p);
+      quotesDiv.appendChild(p);
       i++;
-      setTimeout(showQuote, 1500);
+      setTimeout(showNext, 1500);
     } else {
       setTimeout(showEnvelope, 1500);
     }
   }
-
-  showQuote();
+  showNext();
 }
 
 function showEnvelope() {
-  document.querySelector(".container").innerHTML = `
-    <div class="envelope-wrapper">
-      <div class="envelope">
-        <div class="seal">💖</div>
-        <div class="letter">
-          <h2>To My Shiana 💌</h2>
-          <p id="loveText"></p>
-          <p class="signature">Forever yours ❤️</p>
-        </div>
+  const container = document.querySelector(".container");
+  container.innerHTML = `
+    <div class="envelope">
+      <div class="letter">
+        <h3>To My Selfieee 💌</h3>
+        <p id="loveText"></p>
+        <div class="ring">💍</div>
       </div>
     </div>
   `;
-
-  bgMusic.volume = 0.5;
-  bgMusic.play();
 
   typeLetter();
 }
 
 function typeLetter() {
-  const message = "Loving you isn’t just a feeling — it’s the safest place I’ve ever known. You’ve become my calm in chaos, my light in dark days, and the reason I smile without even realizing it. And in every lifetime, I would still choose you. Always. 💖";
-
-  let i = 0;
+  const message = "I will choose you, today and every single day. You are my forever.";
   const loveText = document.getElementById("loveText");
+  let i = 0;
 
-  function typing() {
+  function type() {
     if (i < message.length) {
       loveText.textContent += message.charAt(i);
       i++;
-      setTimeout(typing, 35);
+      setTimeout(type, 50);
     } else {
-      setTimeout(showRing, 800);
+      setTimeout(showFinalMessage, 4000);
     }
   }
-
-  setTimeout(typing, 1200);
+  type();
 }
 
-function showRing() {
-  const ring = document.createElement("div");
-  ring.classList.add("ring");
-  ring.innerHTML = "💍";
-
-  const foreverText = document.createElement("div");
-  foreverText.classList.add("forever-text");
-
-  document.body.appendChild(ring);
-  document.body.appendChild(foreverText);
-
-  setTimeout(() => {
-    ring.classList.add("ring-drop");
-    launchFireworks();
-    animateForeverText(foreverText);
-    bgMusic.volume = 1;
-  }, 100);
-}
-
-function animateForeverText(element) {
-  const sentence = "In every lifetime, in every universe… it will always be you. ❤️";
-  const words = sentence.split(" ");
-  let index = 0;
-
-  function showWord() {
-    if (index < words.length) {
-      const span = document.createElement("span");
-      span.textContent = words[index] + " ";
-      span.classList.add("fade-word");
-      element.appendChild(span);
-      index++;
-      setTimeout(showWord, 350);
-    }
-  }
-
-  showWord();
-}
-
-function launchFireworks() {
-  for (let i = 0; i < 40; i++) {
-    const spark = document.createElement("div");
-    spark.classList.add("firework");
-    spark.style.left = Math.random() * 100 + "vw";
-    spark.style.top = Math.random() * 60 + "vh";
-    spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-    document.body.appendChild(spark);
-
-    setTimeout(() => spark.remove(), 1000);
-  }
-}
-
-noBtn.addEventListener("mouseenter", moveNoBtn);
-noBtn.addEventListener("click", moveNoBtn);
-
-function moveNoBtn() {
+function showFinalMessage() {
   const container = document.querySelector(".container");
-  const rect = container.getBoundingClientRect();
 
-  const x = Math.random() * (rect.width - 100);
-  const y = Math.random() * (rect.height - 50);
+  container.innerHTML = `
+    <div class="final-message">
+      <h2>One More Thing... 💭</h2>
+      <p>I’m sorry I couldn’t give you chains, bracelets or cute gifts yet.</p>
+      <p>I promise one day I’ll give you everything you deserve.</p>
+      <p>This may not be expensive, but I made it with all my heart.</p>
+      <p>I hope it gives you happiness. ❤️</p>
+      <p>— Aldroy</p>
 
-  noBtn.style.position = "absolute";
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-               }
+      <div class="valentine-section">
+        <h2 class="valentine-title">Happy Valentine's Day, Selfieee ❤️</h2>
+        <p class="valentine-text">
+          You will always be my favorite notification,
+          my safest place, and my forever person.
+        </p>
+      </div>
+
+      <button id="replayBtn">Replay Our Story 💕</button>
+    </div>
+  `;
+
+  document.getElementById("replayBtn").addEventListener("click", () => {
+    location.reload();
+  });
+  }
