@@ -14,35 +14,63 @@ typeText();
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const bgMusic = document.getElementById("bgMusic");
-let scale = 1;
 
-yesBtn.addEventListener("click", () => {
-  scale += 0.2;
-  yesBtn.style.transform = `scale(${scale})`;
+yesBtn.addEventListener("click", showIntroQuotes);
 
-  if (scale > 2) {
-    document.querySelector(".container").innerHTML = `
-      <div class="envelope-wrapper">
-        <div class="envelope">
-          <div class="seal">💖</div>
-          <div class="letter">
-            <h2>To My Shiana 💌</h2>
-            <p id="loveText"></p>
-            <p class="signature">Forever yours ❤️</p>
-          </div>
+function showIntroQuotes() {
+  const container = document.querySelector(".container");
+
+  container.innerHTML = `
+    <div class="intro-quotes" id="introQuotes"></div>
+  `;
+
+  const quotes = [
+    "You are my calm in every storm.",
+    "You are the safest place my heart has ever known.",
+    "Loving you feels like home."
+  ];
+
+  const intro = document.getElementById("introQuotes");
+  let i = 0;
+
+  function showQuote() {
+    if (i < quotes.length) {
+      const p = document.createElement("p");
+      p.classList.add("quote-line");
+      p.textContent = quotes[i];
+      intro.appendChild(p);
+      i++;
+      setTimeout(showQuote, 1500);
+    } else {
+      setTimeout(showEnvelope, 1500);
+    }
+  }
+
+  showQuote();
+}
+
+function showEnvelope() {
+  document.querySelector(".container").innerHTML = `
+    <div class="envelope-wrapper">
+      <div class="envelope">
+        <div class="seal">💖</div>
+        <div class="letter">
+          <h2>To My Shiana 💌</h2>
+          <p id="loveText"></p>
+          <p class="signature">Forever yours ❤️</p>
         </div>
       </div>
-    `;
+    </div>
+  `;
 
-    bgMusic.volume = 0.5;
-    bgMusic.play();
+  bgMusic.volume = 0.5;
+  bgMusic.play();
 
-    typeLetter();
-  }
-});
+  typeLetter();
+}
 
 function typeLetter() {
-  const message = "Loving you isn’t just a feeling — it’s the safest place I’ve ever known. You’ve become my calm in chaos, my light in dark days, and the reason I smile without even realizing it. I don’t just love you for who you are… I love you for how I become better because of you. And if I had to choose again, in every lifetime, I would still choose you. Always. 💖";
+  const message = "Loving you isn’t just a feeling — it’s the safest place I’ve ever known. You’ve become my calm in chaos, my light in dark days, and the reason I smile without even realizing it. And in every lifetime, I would still choose you. Always. 💖";
 
   let i = 0;
   const loveText = document.getElementById("loveText");
@@ -84,8 +112,6 @@ function animateForeverText(element) {
   const words = sentence.split(" ");
   let index = 0;
 
-  element.classList.add("show-forever");
-
   function showWord() {
     if (index < words.length) {
       const span = document.createElement("span");
@@ -126,4 +152,4 @@ function moveNoBtn() {
   noBtn.style.position = "absolute";
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
-    }
+               }
