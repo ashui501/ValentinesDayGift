@@ -12,7 +12,7 @@ body {
   align-items: center;
   background: linear-gradient(135deg, #ff758c, #ff7eb3);
   overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
 
 .container {
@@ -25,7 +25,7 @@ body {
   text-align: center;
   color: #fff;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  position: relative;
+  z-index: 2;
 }
 
 h1 {
@@ -36,8 +36,7 @@ h1 {
 
 p {
   font-size: 1rem;
-  margin-bottom: 1.8rem;
-  opacity: 0.95;
+  margin-bottom: 1.4rem;
 }
 
 .buttons {
@@ -67,50 +66,38 @@ button {
   position: relative;
 }
 
-/* Intro Quotes */
+/* Quotes */
 .intro-quotes {
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: white;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  font-weight: 600;
+  animation: fadeIn 1s ease forwards;
 }
 
-.quote-line {
-  opacity: 0;
-  animation: fadeQuote 1s ease forwards;
-}
-
-@keyframes fadeQuote {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
 }
 
 /* Envelope */
-.envelope-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .envelope {
   width: 300px;
   height: 200px;
   background: #ff4d6d;
   border-radius: 12px;
   position: relative;
-  overflow: hidden;
+  margin: auto;
 }
 
 .envelope::before {
   content: "";
   position: absolute;
-  top: 0;
   width: 100%;
   height: 100px;
   background: #e63e62;
+  top: 0;
+  left: 0;
   transform-origin: top;
   animation: openFlap 1s ease forwards;
 }
@@ -120,105 +107,57 @@ button {
   to { transform: rotateX(-120deg); }
 }
 
-.seal {
-  position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-}
-
 .letter {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 270px;
-  background: white;
-  color: #333;
-  padding: 1.2rem;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  animation: slideUp 1.4s ease forwards;
-}
-
-@keyframes slideUp {
-  from { top: 100%; opacity: 0; }
-  to { top: 50%; opacity: 1; }
-}
-
-.letter h2 {
-  color: #ff4d6d;
-}
-
-.signature {
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #ff4d6d;
-}
-
-/* Ring */
-.ring {
-  position: fixed;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 3rem;
-  z-index: 999;
-}
-
-.ring-drop {
-  animation: dropRing 1.5s cubic-bezier(0.25, 1.5, 0.5, 1) forwards;
-}
-
-@keyframes dropRing {
-  0% { top: -100px; }
-  70% { top: 55%; }
-  85% { top: 50%; }
-  100% { top: 52%; }
-}
-
-/* Soulmate Line */
-.forever-text {
-  position: fixed;
-  top: 65%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.3rem;
+  padding: 1rem;
   color: white;
+  margin-top: 60px;
+}
+
+.ring {
+  font-size: 2rem;
+  margin-top: 1rem;
+  animation: drop 1s ease forwards;
+}
+
+@keyframes drop {
+  from { transform: translateY(-80px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Final message */
+.final-message {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.valentine-section {
+  margin-top: 1.8rem;
+}
+
+.valentine-title {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.valentine-text {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+#replayBtn {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  color: #ff4d6d;
   font-weight: 600;
-  text-align: center;
+  cursor: pointer;
 }
 
-.fade-word {
-  opacity: 0;
-  animation: fadeInWord 0.8s ease forwards;
-}
-
-@keyframes fadeInWord {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Fireworks */
-.firework {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-  from { transform: scale(0); opacity: 1; }
-  to { transform: scale(4); opacity: 0; }
-}
-
-/* Credit */
 .credit {
-  position: fixed;
+  position: absolute;
   bottom: 10px;
-  right: 15px;
   font-size: 0.7rem;
-  color: rgba(255,255,255,0.6);
-}
+  color: white;
+  opacity: 0.7;
+  }
